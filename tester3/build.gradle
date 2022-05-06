@@ -50,7 +50,7 @@ dependencies {
 //	compile files('C:/opencv/build/java/opencv-451.jar')
 //	compile files('C:/Users/miyak/Downloads/shared.jar')
 	implementation files('C:/opencv/build/java/opencv-451.jar')
-	implementation files('C:/Users/miyak/Downloads/shared.jar')
+	implementation files('shared.jar')
 	
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
