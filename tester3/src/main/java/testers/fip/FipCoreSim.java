@@ -30,6 +30,7 @@ public class FipCoreSim implements FipCore {
 			
 			if (arch.equals("amd64")) {
 				System.load("C:\\opencv\\build\\java\\x64\\opencv_java451.dll");
+			//	System.load("../opencv_java451.dll");
 			}
 			else if (arch.equals("x86")) {
 				System.load("C:\\opencv\\build\\java\\x86\\opencv_java451.dll");
