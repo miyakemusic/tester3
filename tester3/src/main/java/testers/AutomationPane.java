@@ -225,6 +225,12 @@ public class AutomationPane extends JPanel {
 				// TODO Auto-generated method stub
 				
 			}
+
+			@Override
+			public void onStopRequestImage() {
+				// TODO Auto-generated method stub
+				
+			}
 		});
 		equipmentPanel.updateUI();	
 	}

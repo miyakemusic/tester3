@@ -164,6 +164,30 @@ public abstract class MainApplicationPanel extends JPanel {
 	private byte[] prevImage;
 	private Robot robot;
 	
+	class ImageUploader extends Thread {
+		private boolean stopRequest = false;
+		@Override
+		public void run() {
+			while(!stopRequest) {	
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				postMyImage();
+			}
+		}
+		
+		public void stopUploading() {
+			stopRequest = true;
+		}
+
+		public ImageUploader startUploading() {
+			this.start();
+			return this;
+		}
+	}
+	private ImageUploader imageUploader = null;
 	public MainApplicationPanel(RestClient restClient) {
 		this.restClient = restClient;
 		this.setLayout(new BorderLayout());
@@ -271,7 +295,7 @@ public abstract class MainApplicationPanel extends JPanel {
 		tab.setFont(new Font("Arial", Font.PLAIN, 20));
 		
 		configurePort(this.ports);
-		
+
 		restClient.webSocket("ws://" + restClient.host() + ":8080/ws", new MyWebSocketCallback() {
 			@Override
 			public void onResultUpdate(TestPlan2Element testPlan2Element) {
@@ -285,7 +309,15 @@ public abstract class MainApplicationPanel extends JPanel {
 
 			@Override
 			public void onRequestImage() {
-				postMyImage();
+				if (imageUploader != null) {
+					imageUploader.stopUploading();
+				}
+				imageUploader = new ImageUploader().startUploading();
+			}
+			
+			@Override
+			public void onStopRequestImage() {
+				imageUploader.stopUploading();
 			}
 			
 			@Override
@@ -302,21 +334,8 @@ public abstract class MainApplicationPanel extends JPanel {
 			}
 		});
 		
-		Thread thread = new Thread() {
-			@Override
-			public void run() {
-				while(true) {
-					
-					try {
-						Thread.sleep(1000);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-					postMyImage();
-				}
-			}
-		};
-		thread.start();
+
+		
 	}
 	
 	private void postMyImage() {
@@ -335,6 +354,7 @@ public abstract class MainApplicationPanel extends JPanel {
             if (imageChanged(imageInByte)) {
 	            restClient.post(new ImageJson(imageInByte));
 	            prevImage = imageInByte;
+	            System.out.println("Image update");
             }
             
         } catch (IOException e) {

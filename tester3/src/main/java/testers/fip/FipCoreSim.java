@@ -3,6 +3,7 @@ package testers.fip;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -29,8 +30,8 @@ public class FipCoreSim implements FipCore {
 			String arch = System.getProperty("os.arch");
 			
 			if (arch.equals("amd64")) {
-				System.load("C:\\opencv\\build\\java\\x64\\opencv_java451.dll");
-			//	System.load("../opencv_java451.dll");
+			//	System.load("C:\\opencv\\build\\java\\x64\\opencv_java451.dll");
+				System.load(Paths.get("opencv_java451.dll").toAbsolutePath().toString());
 			}
 			else if (arch.equals("x86")) {
 				System.load("C:\\opencv\\build\\java\\x86\\opencv_java451.dll");

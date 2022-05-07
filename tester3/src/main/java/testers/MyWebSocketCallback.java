@@ -12,4 +12,6 @@ public interface MyWebSocketCallback {
 	void onRequestImage();
 	
 	void onMouseEvent(MouseEventJson e);
+
+	void onStopRequestImage();
 }

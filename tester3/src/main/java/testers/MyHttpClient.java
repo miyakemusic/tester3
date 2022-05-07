@@ -249,6 +249,9 @@ public class MyHttpClient {
 					else if (signal.getSignalType().equals(WebSocketSignal.SignalType.RequestImage)) {
 						myWebSocketCallback.onRequestImage();
 					}
+					else if (signal.getSignalType().equals(WebSocketSignal.SignalType.StopRequestImage)) {
+						myWebSocketCallback.onStopRequestImage();
+					}
 					else if (signal.getSignalType().equals(WebSocketSignal.SignalType.MouseEvent)) {
 						Object obj = signal.getObject();
 						String str = new ObjectMapper().writeValueAsString(obj);
@@ -256,6 +259,7 @@ public class MyHttpClient {
 						//System.out.println();
 						myWebSocketCallback.onMouseEvent(mouseEvent);
 					}
+					
 				} catch (JsonMappingException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
