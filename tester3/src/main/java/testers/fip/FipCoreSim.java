@@ -28,7 +28,7 @@ public class FipCoreSim implements FipCore {
 	public FipCoreSim(String sampleImage, String failImage) {
 		if (System.getProperty("os.name").toLowerCase().startsWith("win")) {
 			String arch = System.getProperty("os.arch");
-			
+			System.out.println("arch="  + arch);
 			if (arch.equals("amd64")) {
 			//	System.load("C:\\opencv\\build\\java\\x64\\opencv_java451.dll");
 				System.load(Paths.get("opencv_java451.dll").toAbsolutePath().toString());
@@ -69,7 +69,7 @@ public class FipCoreSim implements FipCore {
 			imageName = this.failImage;
 		}
 		
-    	File imageFile = new File( this.getClass().getResource(imageName).getFile() );
+    	File imageFile = new File(imageName);
     	BufferedImage originalImage = ImageIO.read(imageFile);
     	
     	double num = 99;

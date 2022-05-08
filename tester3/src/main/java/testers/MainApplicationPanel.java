@@ -309,6 +309,7 @@ public abstract class MainApplicationPanel extends JPanel {
 
 			@Override
 			public void onRequestImage() {
+				prevImage = null;
 				if (imageUploader != null) {
 					imageUploader.stopUploading();
 				}
