@@ -72,7 +72,7 @@ public abstract class Automator {
 						"<tr><td>Port</td><td>" + portText(testPlan, e) + "</td></tr>" + 
 						"<tr><td>Direction</td><td>" + directionText(e) + "</td></tr>" + 
 						"</table>" + 
-						"<img src=\"" + "file:" + this.getClass().getResource(e.getDirection().equals("Equipment") ? "equipmentside.PNG": "fiberside.PNG").getFile() + "\" alt=\"Red dot\" />" + 
+						"<img src=\"" + "file:" + (e.getDirection().equals("Equipment") ? "equipmentside.PNG": "fiberside.PNG") + "\" alt=\"Red dot\" />" + 
 						"</body></html>");
 				
 				if (!ret) {

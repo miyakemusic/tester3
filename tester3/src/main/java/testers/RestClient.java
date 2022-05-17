@@ -34,6 +34,7 @@ import com.miyake.demo.entities.UserEntity;
 import com.miyake.demo.jsonobject.DiagramItemContainers;
 import com.miyake.demo.jsonobject.ImageJson;
 import com.miyake.demo.jsonobject.PortTemplate;
+import com.miyake.demo.jsonobject.ProjectJson;
 import com.miyake.demo.jsonobject.TestCaseRequest;
 import com.miyake.demo.jsonobject.TestItemList;
 import com.miyake.demo.jsonobject.TestPlan2;
@@ -515,5 +516,32 @@ public class RestClient {
 
 	public String host() {
 		return this.http.host();
+	}
+
+	public ProjectJson[] projectList() {
+		try {
+			return this.http.getObject("projectListForTester",  ProjectJson[].class);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public ProjectJson[] equipmentList(Long id) {
+		try {
+			return this.http.getObject("equipmentListForTester?id=" + id,  ProjectJson[].class);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public TestPlan2 equipmentTest(Long id) {
+		try {
+			return this.http.getObject("equipmentTestForTester?id=" + id,  TestPlan2.class);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

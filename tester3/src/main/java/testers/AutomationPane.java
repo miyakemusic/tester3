@@ -14,8 +14,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
+import com.miyake.demo.entities.EquipmentEntity;
 import com.miyake.demo.entities.TestScenarioEntity;
 import com.miyake.demo.jsonobject.MouseEventJson;
+import com.miyake.demo.jsonobject.ProjectJson;
 import com.miyake.demo.jsonobject.TestPlan2;
 import com.miyake.demo.jsonobject.TestPlan2Element;
 
@@ -104,17 +106,35 @@ public class AutomationPane extends JPanel {
 			}			
 		};
 				
-		TestScenarioEntity[] testScenarios = restClient.testPlanList();
+//		TestScenarioEntity[] testScenarios = restClient.testPlanList();
+		ProjectJson[] projects = restClient.projectList();
 		
-		JComboBox<TestScenarioEntity> equipmentCombo = new JComboBox<>();
-		for (TestScenarioEntity testScenario : testScenarios) {
-			equipmentCombo.addItem(testScenario);
-		}
+		JComboBox<ProjectJson> projectCombo = new JComboBox<>();
+		for (ProjectJson project : projects) {
+			projectCombo.addItem(project);
+		}		
 
+		JComboBox<ProjectJson> equipmentCombo = new JComboBox<>();
+//		for (TestScenarioEntity testScenario : testScenarios) {
+//			equipmentCombo.addItem(testScenario);
+//		}
+		
+		projectCombo.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				equipmentCombo.removeAllItems();
+				ProjectJson[] equipments = restClient.equipmentList( ((ProjectJson)projectCombo.getSelectedItem()).id );
+				for (ProjectJson json : equipments) {
+					equipmentCombo.addItem(json);
+				}
+			}
+		});
+		
 		equipmentCombo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				testPlan = restClient.testPlan(((TestScenarioEntity)equipmentCombo.getSelectedItem()).getId());//.filterEquipment(((EquipmentObj)equipmentCombo.getSelectedItem()).id);
+//				testPlan = restClient.testPlan(((TestScenarioEntity)equipmentCombo.getSelectedItem()).getId());//.filterEquipment(((EquipmentObj)equipmentCombo.getSelectedItem()).id);
+				testPlan = restClient.equipmentTest(((ProjectJson)equipmentCombo.getSelectedItem()).id);
 				model.fireTableDataChanged();
 			}
 		});
@@ -123,6 +143,7 @@ public class AutomationPane extends JPanel {
 		this.add(new JScrollPane(table), BorderLayout.CENTER);
 		
 		JPanel panel = new JPanel();
+		panel.add(projectCombo);
 		panel.add(equipmentCombo);
 		panel.setLayout(new FlowLayout());
 		this.add(panel, BorderLayout.NORTH);
