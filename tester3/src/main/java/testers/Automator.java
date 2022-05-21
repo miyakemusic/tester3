@@ -95,7 +95,7 @@ public abstract class Automator {
 			
 			for (TestPlan2Element gourpElement : testGroup) {
 				for (TestResult result : results) {
-					if (gourpElement.getTestitem().equals(result.getTestitem())) {
+					if (gourpElement.getTestitem().equals(result.getId())) {
 						gourpElement.setResult(result.getValue());
 						gourpElement.setPassFail(passFailCalculator.judgePassFail(gourpElement.getCriteria(), gourpElement.getResult()));
 					}

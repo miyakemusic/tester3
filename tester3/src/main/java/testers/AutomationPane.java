@@ -134,8 +134,11 @@ public class AutomationPane extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 //				testPlan = restClient.testPlan(((TestScenarioEntity)equipmentCombo.getSelectedItem()).getId());//.filterEquipment(((EquipmentObj)equipmentCombo.getSelectedItem()).id);
-				testPlan = restClient.equipmentTest(((ProjectJson)equipmentCombo.getSelectedItem()).id);
-				model.fireTableDataChanged();
+				ProjectJson obj = (ProjectJson)equipmentCombo.getSelectedItem();
+				if (obj != null) {
+					testPlan = restClient.equipmentTest(obj.id);
+					model.fireTableDataChanged();
+				}
 			}
 		});
 		

@@ -287,7 +287,7 @@ public abstract class MainApplicationPanel extends JPanel {
 
 			@Override
 			protected void onUpdate(List<TestPlan2Element> testGroup) {
-				restClient.uploadResult(testGroup);
+				restClient.uploadResults(testGroup);
 			}
 		};
 		

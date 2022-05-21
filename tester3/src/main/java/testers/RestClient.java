@@ -40,6 +40,7 @@ import com.miyake.demo.jsonobject.TestItemList;
 import com.miyake.demo.jsonobject.TestPlan2;
 import com.miyake.demo.jsonobject.TestPlan2Element;
 import com.miyake.demo.jsonobject.TestResult;
+import com.miyake.demo.jsonobject.TestResultJson;
 
 import testers.MyWebSocketCallback;
 
@@ -491,7 +492,7 @@ public class RestClient {
 		return null;
 	}
 
-	public void uploadResult(List<TestPlan2Element> testGroup) {
+	public void uploadResults(List<TestPlan2Element> testGroup) {
 		try {
 			this.http.post("test_results", testGroup);
 		} catch (IOException e) {
@@ -543,5 +544,13 @@ public class RestClient {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public void uploadResult(TestResultJson testResult) {
+		try {
+			this.http.post("result", testResult);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
